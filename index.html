@@ -3,36 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">    
-    <script src="script.js"></script>
-    <title>color</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>CSS Customizer</title>
 </head>
 <body>
-    <center>
-        <div class="box" id="box"></div>
+    <div class="container">
+        <header>
+            <h1>CSS Property Customizer</h1>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <div class="slider round">
+                        <div class="sun-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        </div>
+                        <div class="moon-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </header>
 
-        <p><input type="text" class="values" id="values" maxlength="50"></p>
+        <main>
+            <div class="box-container">
+                <div class="box" id="box"></div>
+            </div>
 
-        <input type="text" class="values" id="gradientValues" maxlength="50">
-        
-        <p class="margin"></p>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="values">CSS Properties</label>
+                    <input type="text" class="values" id="values" placeholder="background;border-radius;border-color;...">
+                    <small>Enter CSS properties separated by semicolons.</small>
+                </div>
 
-        <button class="reset" onclick="reset()">Reset</button>
-        
-        <p class="sep"></p>
+                <div class="control-group">
+                    <label for="gradientValues">Gradient</label>
+                    <input type="text" class="values" id="gradientValues" placeholder="red;blue;green;...">
+                    <small>Enter gradient colors separated by semicolons.</small>
+                </div>
+                
+                <div class="control-group color-picker-group">
+                    <label for="colorPicker">Color Picker</label>
+                    <div class="color-picker-wrapper">
+                        <input class="colorPicker" type="color" id="colorPicker" value="#ffffff">
+                        <div class="textBox" id="textBox">#ffffff</div>
+                    </div>
+                    <button class="btn" onclick="setColor()">Set Color</button>
+                </div>
 
-        <h2>Color picker:</h2>
-        <input class="colorPicker" type="color" value="#ffffff">
-        <p><div class="textBox" id="textBox">Color: </div></p>
-        <button class="setColor" onclick="setColor()">Set color to box</button>
+                <div class="control-group">
+                    <button class="btn reset" onclick="reset()">Reset</button>
+                </div>
+            </div>
+        </main>
 
-        <p>Color: Color names: red, blue or green; hexa: #000000 or #ffffff; RGB: rgb(0,125,255)</p>
-        <p>Radius (Thickness): Pixels (Npx): 25px or 5px; Percentage (N%): 25% or 5%</p>
-        <p>Height and Width: Pixels (Npx): 500px or 250px; Percentage (N%): 50% or 100%</p>
-        <p>You can skip values: #1010;25px;red;;; this will set the Border Thickness, Height and Width to default</p>
-        <br>
-        <p class="waterMark">Made by <a class="waterMark" href="https://github.com/kmadsdev">KMADS</a></p>
-    </center>
+        <footer>
+            <p class="waterMark">Made by <a class="waterMark" href="https://github.com/kmadsdev">KMADS</a></p>
+        </footer>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
