@@ -10,60 +10,153 @@
     <title>CSS Customizer</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>CSS Property Customizer</h1>
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="theme-toggle">
-                    <input type="checkbox" id="theme-toggle" />
-                    <div class="slider round">
-                        <div class="sun-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <div class="wrapper">
+        <div class="container">
+            <header>
+                <h1>CSS Property Customizer</h1>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="theme-toggle">
+                        <input type="checkbox" id="theme-toggle" />
+                        <div class="slider round">
+                            <div class="sun-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            </div>
+                            <div class="moon-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            </div>
                         </div>
-                        <div class="moon-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </label>
+                </div>
+            </header>
+
+            <main>
+                <div class="box-container">
+                    <div class="box" id="box"></div>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="values">CSS Properties</label>
+                        <input type="text" class="values" id="values" placeholder="background;border-radius;border-color;...">
+                        <small>Enter CSS properties separated by semicolons.</small>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="gradientValues">Gradient</label>
+                        <input type="text" class="values" id="gradientValues" placeholder="red;blue;green;...">
+                        <small>Enter gradient colors separated by semicolons.</small>
+                    </div>
+                    
+                    <div class="control-group color-picker-group">
+                        <label for="colorPicker">Color Picker</label>
+                        <div class="color-picker-wrapper">
+                            <input class="colorPicker" type="color" id="colorPicker" value="#ffffff">
+                            <div class="textBox" id="textBox">#ffffff</div>
+                        </div>
+                        <button class="btn" onclick="setColor()">Set Color</button>
+                    </div>
+
+                    <div class="control-group">
+                        <button class="btn reset" onclick="reset()">Reset</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <aside class="documentation">
+            <h2>DOCS</h2>
+            <div class="doc-content">
+                <section class="doc-section">
+                    <h3>CSS Properties Field</h3>
+                    <p><strong>Input Type:</strong> Text</p>
+                    <p><strong>Format:</strong> Values separated by semicolons (;)</p>
+                    <p><strong>What it does:</strong> Applies multiple CSS properties to the box in sequence.</p>
+                    <p><strong>Property Order:</strong></p>
+                    <ol>
+                        <li>Background color/image</li>
+                        <li>Border radius</li>
+                        <li>Border color</li>
+                        <li>Border width</li>
+                        <li>Height</li>
+                        <li>Width</li>
+                    </ol>
+                    <p><strong>Example:</strong> <code>#ff5733;20px;blue;4px;350px;350px</code></p>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Gradient Field</h3>
+                    <p><strong>Input Type:</strong> Text</p>
+                    <p><strong>Format:</strong> Color values separated by semicolons (;)</p>
+                    <p><strong>What it does:</strong> Creates a linear gradient background with the specified colors. Supports up to 8 colors.</p>
+                    <p><strong>Example:</strong> <code>red;orange;yellow;green;blue</code></p>
+                    <p><strong>Note:</strong> If only one color is provided, it will be applied as a solid background.</p>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Color Picker</h3>
+                    <p><strong>Input Type:</strong> Color selector</p>
+                    <p><strong>What it does:</strong> Allows you to visually select a color and apply it as the box background.</p>
+                    <p><strong>Features:</strong></p>
+                    <ul>
+                        <li>Visual color picker interface</li>
+                        <li>Real-time hex code display</li>
+                        <li>Automatic text color contrast adjustment</li>
+                        <li>Click "Set Color" button to apply</li>
+                    </ul>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Reset Button</h3>
+                    <p><strong>What it does:</strong> Resets all properties and inputs to their default values, clearing the box customization.</p>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Theme Toggle</h3>
+                    <p><strong>What it does:</strong> Switches between light and dark themes. Theme preference is saved in browser local storage.</p>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Size Limits</h3>
+                    <p><strong>Current limits:</strong> <span id="size-min">120px</span> to <span id="size-max">640px</span> (auto-adjusts to your screen).</p>
+                    <p><strong>Applied to:</strong> Height and width values set through CSS Properties.</p>
+                </section>
+
+                <section class="doc-section">
+                    <h3>Visual Examples</h3>
+                    <div class="doc-examples">
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:#ff0000;border-radius:50px;border:5px solid #4a5568;height:180px;width:180px;"></div>
+                            <p><code>red;50px;;5px;180px;180px</code></p>
+                        </div>
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:#0ea5e9;border-radius:16px;border:4px solid #0f172a;height:200px;width:200px;"></div>
+                            <p><code>#0ea5e9;16px;#0f172a;4px;200px;200px</code></p>
+                        </div>
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:#10b981;border-radius:12px;border:2px solid #065f46;height:160px;width:220px;"></div>
+                            <p><code>#10b981;12px;#065f46;2px;160px;220px</code></p>
+                        </div>
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:#f59e0b;border-radius:32px;border:6px solid #111827;height:140px;width:140px;"></div>
+                            <p><code>#f59e0b;32px;#111827;6px;140px;140px</code></p>
+                        </div>
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:linear-gradient(135deg, #6366f1, #ec4899, #f97316);border-radius:20px;border:3px solid #111827;height:190px;width:190px;"></div>
+                            <p><code>linear-gradient(135deg,#6366f1,#ec4899,#f97316);20px;#111827;3px;190px;190px</code></p>
+                        </div>
+                        <div class="doc-example-card">
+                            <div class="doc-example-box" style="background:#111827;border-radius:8px;border:4px solid #f1f5f9;height:170px;width:240px;"></div>
+                            <p><code>#111827;8px;#f1f5f9;4px;170px;240px</code></p>
                         </div>
                     </div>
-                </label>
-            </div>
-        </header>
-
-        <main>
-            <div class="box-container">
-                <div class="box" id="box"></div>
+                </section>
             </div>
 
-            <div class="controls">
-                <div class="control-group">
-                    <label for="values">CSS Properties</label>
-                    <input type="text" class="values" id="values" placeholder="background;border-radius;border-color;...">
-                    <small>Enter CSS properties separated by semicolons.</small>
-                </div>
-
-                <div class="control-group">
-                    <label for="gradientValues">Gradient</label>
-                    <input type="text" class="values" id="gradientValues" placeholder="red;blue;green;...">
-                    <small>Enter gradient colors separated by semicolons.</small>
-                </div>
-                
-                <div class="control-group color-picker-group">
-                    <label for="colorPicker">Color Picker</label>
-                    <div class="color-picker-wrapper">
-                        <input class="colorPicker" type="color" id="colorPicker" value="#ffffff">
-                        <div class="textBox" id="textBox">#ffffff</div>
-                    </div>
-                    <button class="btn" onclick="setColor()">Set Color</button>
-                </div>
-
-                <div class="control-group">
-                    <button class="btn reset" onclick="reset()">Reset</button>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p class="waterMark">Made by <a class="waterMark" href="https://github.com/kmadsdev">KMADS</a></p>
-        </footer>
+            <footer class="doc-footer">
+                <p class="waterMark">Made by <a class="waterMark" href="https://github.com/kmadsdev">KMADS</a></p>
+                <p class="copyright">Copyright &copy; 2024-2026 kmads.dev. All rights reserved.</p>
+            </footer>
+        </aside>
     </div>
     <script src="script.js"></script>
 </body>

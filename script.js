@@ -4,6 +4,13 @@ var box = document.getElementById("box");
 var textBox = document.getElementById('textBox');
 var colorPicker = document.querySelector('.colorPicker');
 var themeToggle = document.getElementById('theme-toggle');
+var boxContainer = document.querySelector('.box-container');
+var sizeMinEl = document.getElementById('size-min');
+var sizeMaxEl = document.getElementById('size-max');
+
+var DEFAULT_SIZE = 300;
+var MIN_SIZE = 120;
+var maxSize = 640;
 
 /**
  * Sets the application theme.
@@ -31,8 +38,8 @@ input.addEventListener("input", function() {
     box.style.borderRadius = styles[1] || '8px';
     box.style.borderColor = styles[2] || (document.body.classList.contains('dark-theme') ? '#4a5568' : '#e2e8f0');
     box.style.borderWidth = styles[3] || '2px';
-    box.style.height = styles[4] || '300px';
-    box.style.width = styles[5] || '300px';
+    computeMaxSize();
+    applyBoxSizes(styles[4] || DEFAULT_SIZE, styles[5] || styles[4] || DEFAULT_SIZE);
 });
 
 gradient.addEventListener("input", function() {
@@ -43,6 +50,41 @@ gradient.addEventListener("input", function() {
     }
     setGradient(vls.split(';'));
 });
+
+function computeMaxSize() {
+    if (!boxContainer) return maxSize;
+    var styles = getComputedStyle(boxContainer);
+    var paddingX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+    var paddingY = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+    var innerWidth = boxContainer.clientWidth - paddingX;
+    var innerHeight = boxContainer.clientHeight - paddingY;
+    var candidate = Math.max(MIN_SIZE, Math.floor(Math.min(innerWidth, innerHeight)));
+    maxSize = candidate;
+    if (sizeMinEl) sizeMinEl.textContent = MIN_SIZE + 'px';
+    if (sizeMaxEl) sizeMaxEl.textContent = maxSize + 'px';
+    return candidate;
+}
+
+function clampSize(value) {
+    if (value === undefined || value === null || value === '') {
+        return Math.min(DEFAULT_SIZE, maxSize);
+    }
+    if (typeof value === 'number') {
+        return Math.min(Math.max(value, MIN_SIZE), maxSize);
+    }
+    var num = parseFloat(String(value));
+    if (isNaN(num)) {
+        return Math.min(DEFAULT_SIZE, maxSize);
+    }
+    return Math.min(Math.max(num, MIN_SIZE), maxSize);
+}
+
+function applyBoxSizes(heightVal, widthVal) {
+    var h = clampSize(heightVal);
+    var w = clampSize(widthVal !== undefined ? widthVal : heightVal);
+    box.style.height = h + 'px';
+    box.style.width = w + 'px';
+}
 
 document.addEventListener("DOMContentLoaded", function() {
     const savedTheme = localStorage.getItem('theme');
@@ -71,6 +113,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    computeMaxSize();
+    applyBoxSizes(DEFAULT_SIZE, DEFAULT_SIZE);
+});
+
+window.addEventListener('resize', function() {
+    computeMaxSize();
+    applyBoxSizes(box.style.height, box.style.width);
 });
 
 function setGradient(vls) {
@@ -86,10 +136,10 @@ function reset() {
     const isDark = document.body.classList.contains('dark-theme');
     box.style.borderRadius = '8px';
     box.style.borderColor = isDark ? '#4a5568' : '#e2e8f0';
-    box.style.height = '300px';
-    box.style.width = '300px';
     box.style.borderWidth = '2px';
     box.style.background = isDark ? '#1a202c' : 'white';
+    computeMaxSize();
+    applyBoxSizes(DEFAULT_SIZE, DEFAULT_SIZE);
     input.value = "";
     gradient.value = "";
     colorPicker.value = '#ffffff';
