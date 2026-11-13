@@ -1,6 +1,10 @@
 # CSS Property Customizer
 A web-based tool for visually customizing CSS properties on a box element in real-time. Features include property manipulation, gradient generation, color picking, and theme switching.
 
+![CSS Property Customizer: typing tomato;24px;gold;8px turns the box orange with a rounded gold border, then a tomato;gold;teal gradient fills it](docs/media/custom-square.gif)
+
+*Recorded on the live site, [kmads.dev/custom-square](https://kmads.dev/custom-square/), on 2026-11-13.*
+
 ## Overview
 This application allows users to experiment with CSS properties by providing an interactive interface to modify a box element's appearance. Changes are applied in real-time, making it an educational tool for learning CSS or a quick prototyping environment for testing visual styles.
 
